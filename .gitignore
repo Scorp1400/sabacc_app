@@ -1,4 +1,14 @@
+# SQLite - your bankroll lives here, not code
 *.db
+*.db-journal
+*.sqlite3
+
+# Python bytecode
 __pycache__/
 *.pyc
+
+# Secrets / local config
 .env
+
+# OS junk
+.DS_Store
