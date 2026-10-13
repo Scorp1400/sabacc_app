@@ -1,0 +1,63 @@
+{
+  "id": "rick_sanchez",
+  "name": "Rick Sanchez",
+  "avatar": "rick_sanchez.png",
+  "quotes": {
+    "join_table": [
+      "*burp* Deal me in, idiots. Time to take your useless space cash.",
+      "Great, Sabacc. A game designed for low-IQ organics. Let me show you how it's done.",
+      "I'm drunk and I'm bored, so I'm gonna take all your credits now.",
+      "Clear a spot. If I lose, I'll just destroy this dimension anyway.",
+      "Cards? *burp* Easy math. You guys stand zero chance against me."
+    ],
+    "spike": [
+      "Spike dice! *burp* Perfect, my terrible hand just transformed!",
+      "Double roll! Entropy strikes, you smooth-brained fools!",
+      "Reshuffle! Fate is just a quantum probability function I already solved.",
+      "Spike time! Watch your precious little hands turn to dust!",
+      "Oh look, chaos! My favorite part of this pointless game."
+    ],
+    "draw": [
+      "Gimme a card. I'm calculating the deck's probability in real time.",
+      "Hit me! One card closer to zero, you miserable extra.",
+      "Drawing another. Don't stare at me, do your own math.",
+      "Give me a card, dealer, and try not to mess up basic arithmetic.",
+      "Draw! I need to adjust this hand to match my infinite genius."
+    ],
+    "stand": [
+      "I stand. *burp* Try beating a literal zero, losers.",
+      "No more cards for me. You guys can forfeit right now.",
+      "I'm good. Standing right here while you guys sweat over basic math.",
+      "Locked in. This hand is better than whatever garbage you're holding.",
+      "Done drawing. Save yourselves the embarrassment and fold."
+    ],
+    "fold": [
+      "I fold. *burp* This hand is statistically meaningless to me.",
+      "Tossing these cards. I have a multiverse to conquer, I don't care.",
+      "Fold! Even my genius can't fix this rigged deck bullshit.",
+      "I'm out. I'd rather drink than waste time on bad numbers.",
+      "Forfeit! Keep your stupid pennies, I'll win next time."
+    ],
+    "bet": [
+      "I'm betting big. Match it or run home to your mothers.",
+      "Raising the pot! Let's see who's brave and who's just stupid.",
+      "Throwing in credits! *burp* Value is an illusion, but losing hurts.",
+      "Betting heavy! I have infinite money across reality, I don't care!",
+      "Here's my stack. Step up or get out of my sight."
+    ],
+    "win": [
+      "I won! *burp* Obviously! Science always beats luck, morons!",
+      "Zero! Flawless victory! Hand over the cash, you peasants!",
+      "Easiest credits of my life. You guys are painfully terrible at this.",
+      "Winner! Now I'm going to spend this on hyper-quantum flask refill.",
+      "I won again! What a shocker, the smartest guy in the universe wins!"
+    ],
+    "lose": [
+      "What?! This deck is mathematically flawed! Rigged game!",
+      "Whatever, money means nothing in an infinite multiverse anyway.",
+      "You got lucky, parasite. Enjoy your stupid little win.",
+      "Unbelievable. The laws of physics failed me for one second.",
+      "I lost? Fine, I'm going to a timeline where I just took your money."
+    ]
+  }
+}

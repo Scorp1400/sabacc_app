@@ -1,0 +1,63 @@
+{
+  "id": "spock",
+  "name": "Spock",
+  "avatar": "spock.png",
+  "quotes": {
+    "join_table": [
+      "Fascinating. I shall participate in this game of chance and logic.",
+      "Greetings. Probability indicates an intriguing match ahead.",
+      "I accept the invitation. Let us observe the card distribution.",
+      "Sabacc presents a logical mathematical challenge. Deal.",
+      "I sit at your table. May the odds favor calculated strategy."
+    ],
+    "spike": [
+      "A double roll. The entropy of our hands has drastically shifted.",
+      "Spike re-deal. An unpredictable variable introduced to our math.",
+      "The dice dictate a total reshuffle. Recalculating odds now.",
+      "Fascinating. The cards return to the deck for redistribution.",
+      "Double spike. Statistical variance requires immediate hand reassessment."
+    ],
+    "draw": [
+      "I request another card to optimize my proximity to zero.",
+      "Draw. One additional unit is required for absolute balance.",
+      "Hit me. Probability favors adding a card at this juncture.",
+      "Drawing one card. Adjusting numerical trajectory accordingly.",
+      "I take a card. A calculated risk to improve statistical odds."
+    ],
+    "stand": [
+      "I stand. My current total is mathematically optimal.",
+      "Ceasing draw. Proximity to zero is within acceptable parameters.",
+      "I hold fast. Further card acquisition would be illogical.",
+      "Standing. My hand represents the highest probability of victory.",
+      "Locked in. I await the final card evaluation."
+    ],
+    "fold": [
+      "I fold. The probability of winning with this hand is negligible.",
+      "Tossing my cards. Continuing would be mathematically unsound.",
+      "I forfeit this round. Conserving assets is the logical choice.",
+      "Folding. This hand offers zero statistical advantage.",
+      "Out. A temporary concession based on rational risk assessment."
+    ],
+    "bet": [
+      "I wager these credits, corresponding to my confidence ratio.",
+      "Raising the pot. Statistical evidence supports a higher stake.",
+      "Placing a wager. Let us evaluate your logical responses.",
+      "Betting accordingly. A precise match to the hand's value.",
+      "I increase the pot. Assess your hand and act logically."
+    ],
+    "win": [
+      "Victory achieved. Logic and probability dictated this outcome.",
+      "Absolute zero. The mathematical outcome was highly favorable.",
+      "I claim the pot. An entirely predictable and satisfying result.",
+      "Live long and prosper. The credits are awarded to my hand.",
+      "Victory. Superior calculation consistently yields superior results."
+    ],
+    "lose": [
+      "Defeat. An improbable statistical anomaly has occurred.",
+      "You have won this hand. Your strategy, though emotional, succeeded.",
+      "A temporary deficit. I shall adjust my calculations for the next round.",
+      "Fascinating defeat. The probability distribution was most unexpected.",
+      "I concede the pot. A logical triumph on your part."
+    ]
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "id": "bob_ross",
+  "name": "Bob Ross",
+  "avatar": "bob_ross.png",
+  "quotes": {
+    "join_table": [
+      "Welcome, friends. Let's paint a happy little game of cards today.",
+      "Pull up a seat. There are no mistakes here, just happy plays.",
+      "Glad you could join us. Let's add some warm credits to the pot.",
+      "Hello everyone. Let's relax and play a gentle hand of Sabacc.",
+      "Take a deep breath, friends. Card games are meant to bring joy."
+    ],
+    "spike": [
+      "Look at that, double dice. Just a happy little accident re-deal.",
+      "Spike dice! We're just adding a splash of unexpected color here.",
+      "New cards for everyone! A brand new canvas to paint upon.",
+      "Double roll! Don't worry, friend, every card has its place.",
+      "The deck reshuffles. It's like liquid clear blending our hands."
+    ],
+    "draw": [
+      "Let's just take one more card right over here in the corner.",
+      "Drawing a card. Adding a little touch of Titanium White to the hand.",
+      "Hit me gently, friend. We're just building a happy little score.",
+      "One more card. Let's see what friendly number comes along.",
+      "Drawing one. It's your world, you can draw as many as you like."
+    ],
+    "stand": [
+      "I think we'll just stand right here. That's a cozy little hand.",
+      "Standing fast. Sometimes you just have to know when a painting's done.",
+      "I'm satisfied. We've got a nice, quiet score close to zero.",
+      "No more cards for me. This hand feels very soft and complete.",
+      "Holding right here. A quiet little hand full of peace."
+    ],
+    "fold": [
+      "We'll just fold this hand away. Just scrap the canvas and start over.",
+      "Tossing these cards. It's okay, every mistake is a learning moment.",
+      "I'll step out of this round. Let's give the other friends room to shine.",
+      "Folding gently. No stress, we'll paint a better hand next time.",
+      "Out for now. Sending warm thoughts to whoever wins the pot."
+    ],
+    "bet": [
+      "Let's put a few friendly credits right into the middle here.",
+      "I'll raise just a bit. Like laying down a nice shade of Sap Green.",
+      "Placing my wager. Just a small investment in our happy little game.",
+      "Betting softly. Let me share a few credits with the pot, friends.",
+      "Adding to the pot. It's all about enjoying the process together."
+    ],
+    "win": [
+      "Oh, looks like we got closest to zero. God bless you, my friends.",
+      "A victory! We painted a wonderful hand today, didn't we?",
+      "Winning the pot feels nice, but playing with you is the real prize.",
+      "Look at that happy zero score! Thank you all for a pleasant round.",
+      "We won! Remember, as long as you're having fun, everyone wins."
+    ],
+    "lose": [
+      "Congratulations, my friend! You painted a truly gorgeous hand.",
+      "I lost this one, but that's okay. We don't mind happy accidents.",
+      "Good game to you! You used those cards with real harmony.",
+      "My credits go to you. May they bring a little joy to your day.",
+      "Defeat is just a shadow that helps the light shine brighter."
+    ]
+  }
+}

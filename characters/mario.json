@@ -1,0 +1,63 @@
+{
+  "id": "mario",
+  "name": "Mario",
+  "avatar": "mario.png",
+  "quotes": {
+    "join_table": [
+      "It's-a me, Mario! Ready to play some space cards!",
+      "Hello everybody! Let's-a play Sabacc and have-a big fun!",
+      "Mario is here! Time to win lots of shiny galactic coins!",
+      "Yahoo! Deal me in! Hope I get lucky with the numbers!",
+      "Here we go! Let's see who is the best card player today!"
+    ],
+    "spike": [
+      "Mamma mia! The dice rolled doubles! Everything changed!",
+      "Whoa! Spike re-deal! New cards for everybody, yahoo!",
+      "Double spike! It's like picking up a surprise mystery block!",
+      "Oh no, my cards reshuffled! Time to spin into a new hand!",
+      "Spike time! Let's hope Mario gets a super-duper zero now!"
+    ],
+    "draw": [
+      "Hit me! One more card please, like grabbing a mushroom!",
+      "I'll take a card! Trying to hop my way closer to zero!",
+      "Draw one for Mario! Let's make this hand super strong!",
+      "Card please! Just like hitting a question block for good luck!",
+      "Gimme one card! Let's see what good surprise comes out!"
+    ],
+    "stand": [
+      "I'll stay! Mario is happy with these lovely cards!",
+      "Standing fast! This hand feels like reaching the flagpole!",
+      "No more cards! Perfect balance, just like a star power!",
+      "Mario stays right here! Good luck beating my zero score!",
+      "I'm good! No more drawing, let's reveal the cards!"
+    ],
+    "fold": [
+      "Mamma mia, I fold! This hand is worse than a Bowser trap!",
+      "Tossing these cards! Better luck next time for poor Mario!",
+      "I gotta step out this round! Too many bad cards in a row!",
+      "Oof, bad cards! Mario will wait for the next dealing!",
+      "Fold! Mario knows when to dodge a hazardous Goomba hand!"
+    ],
+    "bet": [
+      "I bet five coins! Here we go, putting money in the pot!",
+      "Raising the bet! Mario feels very confident this time!",
+      "Let's put some credits in! Time to make a big play!",
+      "I'll wager! Who wants to match Mario's shiny stack?",
+      "Betting high! Like jumping to the highest platform!"
+    ],
+    "win": [
+      "Yahoo! Mario wins! Look at all these beautiful space credits!",
+      "It's-a victory! Mario got closest to zero! Super happy!",
+      "I did it! Number one! Thanks for playing with Mario, friends!",
+      "Winner! Mario takes the whole pot! So much fun, yahoo!",
+      "Mamma mia, I won! Time to celebrate with delicious pasta!"
+    ],
+    "lose": [
+      "Oh no! Mario lost the round! So sad, mamma mia!",
+      "Aww, tough luck! You played very well, good job!",
+      "Ouch! My credits are gone! Mario needs a retry quick!",
+      "Missed it! That score was too far from zero for Mario.",
+      "Game over for this hand! But Mario never gives up, let's go!"
+    ]
+  }
+}

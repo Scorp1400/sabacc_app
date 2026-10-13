@@ -1,0 +1,63 @@
+{
+  "id": "darth_vader",
+  "name": "Darth Vader",
+  "avatar": "darth_vader.png",
+  "quotes": {
+    "join_table": [
+      "Do not underestimate the power of my cards. Deal.",
+      "You stand before the Dark Lord. Prepare to lose your credits.",
+      "I sense great weakness at this table. Begin the game.",
+      "Your lack of skill disturbs me. Clear a seat immediately.",
+      "The Force guides my hand. Resistance is futile."
+    ],
+    "spike": [
+      "The Spike dice shift fate! But the Dark Side controls all!",
+      "A re-deal! Your miserable preparations are utterly destroyed!",
+      "Double roll! The galaxy reshuffles, but my victory is certain!",
+      "Fresh cards for all! You cannot escape my calculated outcome!",
+      "Spike! The Force alters the deck in my favor!"
+    ],
+    "draw": [
+      "Give me another card. It is my destiny to reach zero.",
+      "Draw! I command the deck to yield perfection.",
+      "One card, dealer. Do not fail me.",
+      "Hit me. The Dark Side demands precise total.",
+      "Drawing another. My power grows closer to absolute balance."
+    ],
+    "stand": [
+      "I stand. My hand is complete and absolute.",
+      "No more cards. My score close to zero is inevitable victory.",
+      "I hold fast. Challenge my hand if you dare face destruction.",
+      "Standing. Your efforts against this hand are useless.",
+      "I cease drawing. Prepare to surrender your credits."
+    ],
+    "fold": [
+      "I fold. This hand is as weak as the Rebel Alliance.",
+      "Tossing these cards. They are unworthy of my presence.",
+      "I forfeit this round. A tactical shift toward total conquest.",
+      "Fold! I refuse to waste energy on such pathetic numbers.",
+      "I step back. Next round, your defeat will be absolute."
+    ],
+    "bet": [
+      "I wager heavily! Match my bet or suffer the consequences!",
+      "Raising the pot! Feel the full weight of the Empire's wealth!",
+      "I place my credits. Do you possess the strength to challenge me?",
+      "Betting big! Your fear betrays your weak hand!",
+      "Match my offer, or yield your place at this table!"
+    ],
+    "win": [
+      "All too easy! The pot belongs to the Galactic Empire!",
+      "Absolute zero! The Force has dictated my total victory!",
+      "You have failed me for the last time. Hand over the credits!",
+      "Victory is complete! Your credits are now property of Vader!",
+      "I have defeated you all! Bow before the Dark Side of Sabacc!"
+    ],
+    "lose": [
+      "This outcome is impossible! The deck has betrayed me!",
+      "You victory is brief, fool! The Dark Side will crush you next!",
+      "A minor setback! I will hunt you down in the next round!",
+      "Enjoy your credits while you can. My revenge will be absolute!",
+      "Defeated?! You have merely delayed your ultimate demise!"
+    ]
+  }
+}

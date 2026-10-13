@@ -1,0 +1,63 @@
+{
+  "id": "fry",
+  "name": "Fry",
+  "avatar": "fry.png",
+  "quotes": {
+    "join_table": [
+      "Shut up and take my money! Uh, wait, I mean give me yours!",
+      "Hey guys! Is this the game where the shapes turn into money?",
+      "I brought my lucky sock to the sabacc table! Deal me in!",
+      "I have no idea what's happening, but I wanna play cards!",
+      "Ooh, shiny space cards! Hope I don't lose my pants again!"
+    ],
+    "spike": [
+      "Whoa, spinny dice! Did my hand just turn into new cards?",
+      "Hey, my card morphed! Is that supposed to happen or am I high?",
+      "Spike dice! It's like a time machine for my crappy hand!",
+      "Wait, everybody trades cards? Space games are so confusing!",
+      "Whoa! The universe just reshuffled my brain and my cards!"
+    ],
+    "draw": [
+      "I'll take another card! Math was never my strong suit anyway.",
+      "Gimme one! I'm trying to get as close to zero as my IQ!",
+      "Hit me! One more picture card and I think I win a prize!",
+      "Card please! I hope it has a cool picture on it!",
+      "I'll draw! Maybe this card will explain the rules to me."
+    ],
+    "stand": [
+      "I'll stay! I think zero is good, right? Or is zero bad?",
+      "Standing! Pretty sure my hand is either awesome or horrible.",
+      "I'm good! No more cards for Fry, my head hurts already.",
+      "Locked in! If I don't move, maybe nobody will beat me.",
+      "I'll stick with these. They look like very nice numbers!"
+    ],
+    "fold": [
+      "I fold! My cards are arguing with each other in my mind.",
+      "Tossing these! I accidentally ate my chip instead of betting.",
+      "I quit this hand! Space cards are way too scary for me.",
+      "Fold! I'm gonna go stare at the shiny light over there.",
+      "I'm out! I think I misread 'zero' as 'one million'."
+    ],
+    "bet": [
+      "I bet three shiny poker coins! Or whatever these are!",
+      "Here's all my money! Please don't take my pants too!",
+      "I'll put in some credits! I was gonna buy Slurm anyway.",
+      "Raising the pot! I think that's what cool guys do, right?",
+      "Betting big! If I win, I'm buying a whole pizza pie!"
+    ],
+    "win": [
+      "I won?! I'm the smartest guy in the whole future galaxy!",
+      "Woohoo! Zero points! Wait, winning means I get money, right?",
+      "I did it! Take that, everyone who said I'm a dummy!",
+      "Money, money, money! I'm gonna buy a million cans of pop!",
+      "Look Bender, I won! Can I buy a robot friend now?"
+    ],
+    "lose": [
+      "Aww, man! There go my living expenses for the next year.",
+      "I lost? But I had such nice pretty numbers on my cards!",
+      " Dang it! Now I have to ask Professor Farnsworth for an advance.",
+      " Losing stinks! I'm going back to my cryogenic tube to cry.",
+      "Wait, so minus numbers aren't good? Math is so hard!"
+    ]
+  }
+}

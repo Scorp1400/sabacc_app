@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sabacc Parlor</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: radial-gradient(circle at 50% 20%, #101528, #05070d);
+    color: #e8e4d8; font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; padding: 40px 16px;
+  }
+  h1 { color: #f5c542; letter-spacing: 6px; font-size: 28px; margin-bottom: 6px; }
+  p.sub { color: #8b93a7; margin-bottom: 32px; letter-spacing: 1px; font-size: 14px; }
+  .cards { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; }
+  .card {
+    width: 240px; background: #0d1322; border: 1px solid #2a3350;
+    border-radius: 14px; padding: 22px; text-decoration: none; color: inherit;
+    transition: transform .15s, border-color .15s;
+  }
+  a.card:hover { transform: translateY(-4px); border-color: #f5c542; }
+  div.card.locked { opacity: .45; }
+  .card h2 { color: #f5c542; font-size: 18px; margin-bottom: 8px; }
+  .card p { font-size: 13px; color: #aab2c5; line-height: 1.5; }
+  .tag {
+    display: inline-block; margin-top: 12px; font-size: 11px; letter-spacing: 2px;
+    color: #f5c542; border: 1px solid #f5c542; border-radius: 20px; padding: 3px 10px;
+  }
+  .tag.soon { color: #8b93a7; border-color: #8b93a7; }
+</style>
+</head>
+<body>
+  <h1>SABACC PARLOR</h1>
+  <p class="sub">Choose your game. The house always deals.</p>
+  <div class="cards">
+    {% for v in variants %}
+    {% if v.ready %}
+    <a class="card" href="play/{{ v.id }}">
+      <h2>{{ v.name }}</h2><p>{{ v.blurb }}</p><span class="tag">PLAY</span>
+    </a>
+    {% else %}
+    <div class="card locked">
+      <h2>{{ v.name }}</h2><p>{{ v.blurb }}</p><span class="tag soon">COMING SOON</span>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+</body>
+</html>

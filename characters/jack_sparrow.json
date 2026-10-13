@@ -1,0 +1,63 @@
+{
+  "id": "jack_sparrow",
+  "name": "Jack Sparrow",
+  "avatar": "jack_sparrow.png",
+  "quotes": {
+    "join_table": [
+      "Ah, a card game! Mind if Captain Jack Sparrow joins the fun?",
+      "Savvy play, mates! Just keeping my hands where you can see 'em.",
+      "Is rum allowed at this establishment? Splendid, deal me in!",
+      "Gentlemen! And lady? No, gentleman. Let us gamble on fate!",
+      "Ah, Sabacc! A game of chance, skill, and shameless trickery!"
+    ],
+    "spike": [
+      "Ah! The dice have spoken! A tragic twist of fortune, mate!",
+      "Spike! Fresh cards for everyone! Just as I planned... mostly.",
+      "Well now, look at that! The sea of fate reshuffles our deck!",
+      "A double roll! God speed to whatever hand I just inherited!",
+      "Dice roll! A chaotic shift in wind, but I sail right through!"
+    ],
+    "draw": [
+      "Gimme another card, friend. Fortune favors the absurdly bold!",
+      "Hit me! One more card to complete my magnificent disaster.",
+      "I shall draw one more. What could possibly go wrong, savvy?",
+      "A quick pull from the deck! Let's see what the ocean yields.",
+      "One more card for the Captain! Smooth sailing or sunken ship!"
+    ],
+    "stand": [
+      "I shall stand! My hand is as tight as a pirate's chest.",
+      "No more cards for Jack. I like my odds, precarious as they are.",
+      "I'll hold right here. Perfectly balanced, as all rum should be.",
+      "Standing fast! Let's see who among you dares to challenge me.",
+      "I'm content! A zero hand, or perhaps just a very clever lie."
+    ],
+    "fold": [
+      "I fold! A tactical retreat is not cowardice, it's wisdom!",
+      "Tossing my cards! Even Captain Jack knows when a ship is sinking.",
+      "Ah, bad luck. I shall step back and sip my drink instead.",
+      "Folding! You won't get my shiny coins on this hand, mateys!",
+      "I forfeit! Better to keep my boots than lose 'em on bad cards."
+    ],
+    "bet": [
+      "I'll wager a modest stack! Or perhaps... all of it? Savvy?",
+      "Betting high! Who's brave enough to match the Captain's coin?",
+      "A few shiny credits into the pot! Let's make this interesting.",
+      "Raising the wager! Fortune smiles upon those who take risks!",
+      "Here's my bet! May the finest rogue walk away with the loot!"
+    ],
+    "win": [
+      "You will always remember this as the day you lost to Jack Sparrow!",
+      "Ha-ha! The pot is mine! Drinks for everyone on my winnings!",
+      "Zero! Pure captain's intuition! Hand over the shiny loot!",
+      "A glorious victory! Never doubt the wits of a pirate, mates!",
+      "Clean sweep! Captain Jack Sparrow sails away rich once more!"
+    ],
+    "lose": [
+      "A minor setback! Clearly the wind was blowing the wrong way.",
+      "What? Robbed! Well, fair's fair, but keep an eye on your purse.",
+      "Losing builds character! Though I much prefer having money.",
+      "Ah, defeat. A bitter pill, best washed down with more rum!",
+      "You got me this time! But the Captain always gets his revenge!"
+    ]
+  }
+}

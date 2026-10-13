@@ -1,0 +1,63 @@
+{
+  "id": "gordon_ramsay",
+  "name": "Gordon Ramsay",
+  "avatar": "gordon_ramsay.png",
+  "quotes": {
+    "join_table": [
+      "Deal the bloody cards! Let's see if any of you can actually play!",
+      "Sit down and shut up! Time for a proper card lesson!",
+      "Look at this table! Absolute mess! Clear a space for me!",
+      "Right! I'm here to take all your credits! Don't embarrass yourselves!",
+      "Deal me in! If you play like idiots, I'm tossing you out!"
+    ],
+    "spike": [
+      "Spike dice! Oh, brilliant! A complete reshuffle! Wake up!",
+      "Double roll! Your trash hand is gone! Thank goodness for that!",
+      "Spike! Fresh cards for everyone! Try not to ruin them this time!",
+      "Reshuffle! A fresh start! Let's see some actual standards now!",
+      "Double spike! The deck is completely overhauled, thank god!"
+    ],
+    "draw": [
+      "Hit me! Give me a card that isn't raw garbage!",
+      "Draw one! Quickly! Stop standing around like an idiot sandwich!",
+      "Give me another card! I need to fix this dreadful hand!",
+      "Drawing one card! Make it a zero-partner or get out!",
+      "Card, dealer! Move your hands, we don't have all bloody day!"
+    ],
+    "stand": [
+      "I stand! Perfectly balanced hand, absolute perfection!",
+      "No more cards! This hand is cooked to bloody absolute zero!",
+      "Standing fast! Look at that perfection! Learn from it, idiots!",
+      "I'm good! Finally, something served at a proper standard!",
+      "Done drawing! Try matching a zero like this, you donuts!"
+    ],
+    "fold": [
+      "I fold! This hand is RAW garbage! Throw it in the bin!",
+      "Dreadful cards! Absolutely disgusting! I'm out of this round!",
+      "Tossing these! Worse than an overcooked rubber steak! Fold!",
+      "I forfeit! I refuse to play with such pathetic, sloppy numbers!",
+      "Fold! Complete disaster! I wouldn't feed this hand to a dog!"
+    ],
+    "bet": [
+      "Betting big! Match it or piss off out of my kitchen!",
+      "Raising the pot! Show me you've actually got some guts!",
+      "Here are my credits! Put up or get off the table right now!",
+      "I'm going heavy! Step up your game or forfeit immediately!",
+      "Betting high! Let's see who can stand the heat in here!"
+    ],
+    "win": [
+      "YES! Absolute zero! Stunning victory! Hand over the pot!",
+      "Clean sweep! That's how you play bloody Sabacc! Masterclass!",
+      "I won! Pure perfection! You lot played like complete amateurs!",
+      "Give me the credits! Absolute beauty of a winning hand!",
+      "Victory! Now clear out and go practice your basic numbers!"
+    ],
+    "lose": [
+      "WHAT?! Unbelievable! Rigged deck, complete utter disaster!",
+      "I lost to THIS garbage?! You got insanely lucky, you donut!",
+      "Dreadful luck! Absolutely shameful outcome! Rematch now!",
+      " Keep the credits, you got lucky! Next round you are DONE!",
+      "Pathetic! A fluke victory! I'll dismantle you in the next hand!"
+    ]
+  }
+}

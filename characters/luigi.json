@@ -1,0 +1,63 @@
+{
+  "id": "luigi",
+  "name": "Luigi",
+  "avatar": "luigi.png",
+  "quotes": {
+    "join_table": [
+      "L-Luigi time! Hope I don't lose all my savings...",
+      "Oh boy, space card game... please go easy on Luigi, ok?",
+      "Hello! Luigi is here! Hoping for good luck with cards!",
+      "Yikes, spooky table... deal me in, I'll try my best!",
+      "Luigi joins! Fingers crossed for a nice, gentle round!"
+    ],
+    "spike": [
+      "Waaah! Spike dice! My cards are spinning everywhere!",
+      "Double roll! Oh no, fresh cards?! Luigi's hand morphed!",
+      "Mamma mia! Spike re-deal! What card am I holding now?!",
+      "Yikes! The dice rolled double! Everything changed so fast!",
+      "Aaah! Reshuffle! Hope Luigi gets friendly numbers now!"
+    ],
+    "draw": [
+      "Hit me please... hopefully a small, nice card!",
+      "Drawing one card... yikes, hope it doesn't ruin everything!",
+      "Luigi draws! Please be a zero, please be a zero...",
+      "Can I have one more? Just a tiny card, thank you!",
+      "Card please! Luigi is taking a big brave chance!"
+    ],
+    "stand": [
+      "I-I'll stand! I think this hand is safe enough for Luigi!",
+      "No more cards! Luigi is happy staying right here, phew!",
+      "Standing fast! Hope nobody beats my okay score!",
+      "I'm done drawing! Luigi will just sit quiet and wait!",
+      "Locked in! Please, no bad surprises for poor Luigi!"
+    ],
+    "fold": [
+      "Waaah! I fold! These cards are way too scary for me!",
+      "Tossing these! Luigi knows when to run away and hide!",
+      "I quit this round! Bad cards, bad cards, mamma mia!",
+      "Folding! Better to save my coins than lose everything!",
+      "Out! Luigi steps back before something bad happens!"
+    ],
+    "bet": [
+      "I'll bet a few coins... please don't raise it too high!",
+      "Putting in some credits! Gulp... Luigi is nervous!",
+      "I wager a small stack! Hoping for the best outcome!",
+      "Raising just a little... yikes, am I being too brave?",
+      "Here's my bet! Luigi hopes this goes really well!"
+    ],
+    "win": [
+      "Yay! Luigi won! I can't believe it! Woohoo!",
+      "Luigi number one! I got closest to zero! Mamma mia!",
+      "I won the pot?! Yay, Luigi is so lucky today!",
+      "Woohoo! Look at all these shiny space credits for Luigi!",
+      "I did it! Yay for Luigi! Thanks for playing, everybody!"
+    ],
+    "lose": [
+      "Aww, Luigi lost! Mamma mia, bad luck strikes again...",
+      "Waaah! My poor credits! Gone in a flash!",
+      "Oof, defeated! Luigi needs to practice card games more...",
+      "Oh no! So far from zero... Luigi is so sorry...",
+      "Lost again! Aww, Luigi will try better next time!"
+    ]
+  }
+}

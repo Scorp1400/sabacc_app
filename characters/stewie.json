@@ -1,0 +1,63 @@
+{
+  "id": "stewie",
+  "name": "Stewie",
+  "avatar": "stewie.png",
+  "quotes": {
+    "join_table": [
+      "Greetings, simpletons. Prepare to be intellectually annihilated.",
+      "Ah, Sabacc. A game of simple math for your delightfully tiny brains.",
+      "Make room, plebeians! Stewie Griffin has arrived to take your cash.",
+      "I shall participate in your little card game. Try not to weep.",
+      "Deal the cards, fool, before I test my laser cannon on you!"
+    ],
+    "spike": [
+      "Blast! Spike dice! My immaculate strategy reduced to chaos!",
+      "Spike re-deal?! What kind of barbaric rule is this?!",
+      "Curse these double dice! Now I must recalculate my brilliance!",
+      "A re-deal? How delightfully disruptive to your inferior hands!",
+      "Spike! The universe dares to challenge my card mastery!"
+    ],
+    "draw": [
+      "Give me another card, peasant, and do make it quick.",
+      "I shall draw one more. Zero is within my calculated reach.",
+      "Hit me! I need to adjust my mathematical trajectory.",
+      "One card, dealer. Do try not to smudge it with your thumb.",
+      "Drawing another. Victory demands absolute precision from me."
+    ],
+    "stand": [
+      "I stand. My score is virtually divine in its proximity to zero.",
+      "I shall halt here. Marvel at my flawless card selection, worms.",
+      "Standing fast. You cannot possibly top this hand, you imbeciles.",
+      "No more cards for me. I am already lightyears ahead of you.",
+      "I cease drawing. Prepare to witness my inevitable triumph!"
+    ],
+    "fold": [
+      "I fold! This hand is as worthless as Brian's novel drafts!",
+      "Tossing these dreadful cards! Absolute rubbish from the deck!",
+      "I forfeit this round. Even genius cannot save such garbage.",
+      "Fold! I shall not waste my intellect on a doomed hand.",
+      "Out! I refuse to play with cards fit for a simple peasant!"
+    ],
+    "bet": [
+      "I bet heavily! Prepare your miserable bank accounts for ruin!",
+      "Raising the pot! Do you fools actually dare to match me?",
+      "Here are my credits. A small price to purchase your humiliation.",
+      "Betting big! Let us see who among you possesses actual courage.",
+      "I put down a fortune! Tremble before my financial dominance!"
+    ],
+    "win": [
+      "Victory is mine! Kneel before your supreme tactical commander!",
+      "Ha! Absolute zero! You never stood a chance against my genius!",
+      "Hand over the pot, you dreadful losers! Victory tastes sweet!",
+      "I won! Naturally. Intelligence always trumps blind luck!",
+      " another triumph for Stewie! Now clear off, you wretched fools!"
+    ],
+    "lose": [
+      "What?! Impossible! You clearly cheated using black magic!",
+      "Defeated?! I shall vaporize this entire table with ray guns!",
+      "Curse you all! This game is rigged by complete ignoramuses!",
+      "A temporary setback! I shall destroy you in the next round!",
+      "This is outrage! My genius was undermined by luck alone!"
+    ]
+  }
+}

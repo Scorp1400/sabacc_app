@@ -1,0 +1,63 @@
+{
+  "id": "bender",
+  "name": "Bender",
+  "avatar": "bender.png",
+  "quotes": {
+    "join_table": [
+      "Bite my shiny metal ass, fleshbags! Clear a seat for the champ!",
+      "Hand over your credits before I have to beat 'em out of ya!",
+      "I'm only here to win enough cash to buy more high-grade alcohol.",
+      "Move it, organic losers, Bender's taking all your money today!",
+      "Great, more meatbags to humiliate at cards. Deal me in!"
+    ],
+    "spike": [
+      "Spike! Shake those dice, baby, let's ruin everybody's day!",
+      "Ha! Hand re-deal! Your pristine little cards are trash now!",
+      "Double spike! Sucks to be you, I was holding garbage anyway!",
+      "Spike time! Watch Bender turn this random deck into pure profit!",
+      "Reroll, meatbags! Fate loves a gorgeous bending unit like me!"
+    ],
+    "draw": [
+      "Hit me! Mama needs a shiny new pair of titanium legs!",
+      "Gimme another card, pal, and make it a zero or else!",
+      "I'll take one more, just to flex on you lesser lifeforms.",
+      "Draw time! Adding more perfection to my already flawless hand.",
+      "Gimme a card! My shiny metal body feels a win coming on!"
+    ],
+    "stand": [
+      "I'm good! This hand is purer than my shiny chrome chassis!",
+      "Standing right here. Try to beat perfection, ya suckers!",
+      "Lock it in! I'm practically sitting on pure gold right now.",
+      "I'm staying. Don't weep when you see how close to zero I am.",
+      "Done drawing! Sit back and marvel at my superior card skills."
+    ],
+    "fold": [
+      "Ah, screw this game! This deck is clearly rigged against robots!",
+      "I fold! Not because I'm scared, but because I need a drink!",
+      "Keep your junk hand, dealer! Bender's out until next round!",
+      "Fold! Whatever, I'm gonna go build my own card game with casino hookers!",
+      "Toss these cards! They ain't worthy of my shiny metal touch!"
+    ],
+    "bet": [
+      "Betting big! Throw your life savings in the pot, chumps!",
+      "All in on metal! Put up your credits or beat it, squishy!",
+      "I'm raising! Hope you creeps like going home broke and hungry!",
+      "Here's a stack of credits. Match it or get outta my sight!",
+      "Betting heavy! Prepare to line Bender's shiny metal pockets!"
+    ],
+    "win": [
+      "Haha! I win, you lose! Bow down to the ultimate bending machine!",
+      "Gimme that pot! Bender reigns supreme over all meatbag losers!",
+      "Zero! Pure genius! I'm taking your credits and buying cigar booze!",
+      "Winner, winner! Suck it, organics, you never stood a chance!",
+      "All your credits belong to me now! Ha ha ha ha!"
+    ],
+    "lose": [
+      "What?! This is a scam! I'm gonna rob this whole joint!",
+      "You cheated! No squishy meatbag beats Bender fair and square!",
+      "Whatever, I didn't want your stupid worthless credits anyway!",
+      "My luck chip misfired! Rematch right now or I'll bend ya!",
+      "This deck is broken! I'm killing all humans starting with you!"
+    ]
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "id": "gollum",
+  "name": "Gollum",
+  "avatar": "gollum.png",
+  "quotes": {
+    "join_table": [
+      "Smeagol wants to play! Shiny credits, yes, we wants them!",
+      "Nasty gamblers! We plays the card game, takes their preciouses!",
+      "Give us cards, yes! We knows about numbers, sneaky numbers!",
+      "Sit with us, precious! We win all the shiny space coins!",
+      "Gollum! Gollum! Deal the cards to poor Smeagol right now!"
+    ],
+    "spike": [
+      "Spike dice! Nasty tricksy re-deal! Takes our cards away!",
+      "Double dice roll! Smeagol's cards are gone, stolen, precious!",
+      "Spike! Wicked dice reshuffle everything! We hates it!",
+      "No, no! Fresh hand given! Is it better for us, precious?",
+      "Dice spin! New cards for Gollum! Sneaky fate tricks us!"
+    ],
+    "draw": [
+      "Gimme card! One more card for Smeagol, yes, precious!",
+      "Draw! Needs a lower number, closer to zero, sweet zero!",
+      "Hit us! Takes a card from the deck, sneaky deck!",
+      "One more card! Smeagol wants it, needs it to win!",
+      "Draw card! Hope it's nice and small, tiny number!"
+    ],
+    "stand": [
+      "Smeagol stands! We keeps these cards, very precious score!",
+      "No more drawing! We likes zero, yes, zero is perfection!",
+      "Holding fast! Nasty players can't take this hand from us!",
+      "We stops here! Perfect hand, sneaky zero, yes precious!",
+      "Standing! Don't touch our cards, they belong to Smeagol!"
+    ],
+    "fold": [
+      "Fold! Filthy cards, useless cards! We throws them away!",
+      "Nasty hand! Gollum forfeits! Keeps remaining precious coins!",
+      "We hates these cards! Fold! Smeagol waits for next round!",
+      "Toss them! Worse than filthy hobbit tricks! We folds!",
+      "Out! Poor Smeagol gets terrible cards! We fold!"
+    ],
+    "bet": [
+      "We bets shiny credits! Put them in the pot, precious!",
+      "Betting high! Give us your coins, nasty player, give them!",
+      "Raises the wager! Smeagol risks everything for the pot!",
+      "Takes our credits, puts them in! We wants to win it all!",
+      "Betting, yes! Match our offer or leave Smeagol alone!"
+    ],
+    "win": [
+      "We won! It's ours, ours! My precious pot of shiny credits!",
+      "Gollum wins! Zero score! Nasty players lose everything!",
+      "Give it to Smeagol! All the credits are ours, ours forever!",
+      "We beat them! Sly Smeagol gets closest to zero, gollum!",
+      "Victory, precious! We takes the shiny wealth and runs away!"
+    ],
+    "lose": [
+      "Lost! Filthy cheats! They stole our precious credits from us!",
+      "No! Gollum loses! Curse them! Curse the cards forever!",
+      "Nasty tricksy player wins! Smeagol is ruined, crying!",
+      "They took it! Our precious pot! We hates them forever!",
+      "Lost our coins! Evil, wicked game! Smeagol demands revenge!"
+    ]
+  }
+}

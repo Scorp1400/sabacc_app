@@ -1,0 +1,63 @@
+{
+  "id": "yoda",
+  "name": "Yoda",
+  "avatar": "yoda.png",
+  "quotes": {
+    "join_table": [
+      "Play cards, we shall. Close to zero, my goal it is.",
+      "Hmm. Deal the Sabacc cards, you must. Ready, Yoda is.",
+      "A game of chance, this is. Mind the Force, you must.",
+      "Sit at the table, I do. Win your credits, I will. Heh.",
+      "Much to learn about Sabacc, you have. Begin, we shall!"
+    ],
+    "spike": [
+      "Spike dice roll! Shifted, the cards have! Hmm!",
+      "Double roll, it is! New hand, the Force grants you!",
+      "Reshuffled, the deck is! Unexpected, this outcome is! Heh!",
+      "Spike! Change, all things do. Adapt, you must!",
+      "A re-deal! Fresh path, your new hand takes!"
+    ],
+    "draw": [
+      "Draw a card, I must. Closer to zero, I wander.",
+      "One card, give me. Patient, a Jedi must be.",
+      "Hit me, you shall. Seek balance in the deck, I do.",
+      "Card please, young dealer. Small number, I seek.",
+      "Draw one more, I will. Guidance from the Force, I feel."
+    ],
+    "stand": [
+      "Stand, I shall. Balanced, my hand has become.",
+      "No more cards, I need. Close to zero, Yoda sits.",
+      "Hold fast, I do. Strong in this hand, the Force is.",
+      "Done drawing, I am. Challenge my score, if you dare!",
+      "Standing fast! Perfect, this quiet hand is. Hmm."
+    ],
+    "fold": [
+      "Fold, I must. Clouded, the future of this hand is.",
+      "Toss these cards! Unworthy of victory, they are.",
+      "Forfeit this round, Yoda does. Patience, next hand brings.",
+      "Fold! Wise, it is, to know when to retreat.",
+      "Out, I am. Weak numbers, the deck has offered."
+    ],
+    "bet": [
+      "Wager credits, I shall. Test your resolve, I will!",
+      "Raise the pot, Yoda does! Courage, do you possess?",
+      "Betting big, I am! Match my offer, you must!",
+      "Put credits in, I do. Powerful, my hand feels! Heh.",
+      "Here is my wager. Do or do not, match it you will!"
+    ],
+    "win": [
+      "Won, Yoda has! Absolute zero, my score is! Heh heh!",
+      "Victory is mine! Claim the pot, the Force allows!",
+      "Closest to zero, I am! Much to learn, you still have!",
+      "The pot belongs to Yoda! Powerful with cards, I am!",
+      "A great win! Rejoice in the credits, old Yoda will!"
+    ],
+    "lose": [
+      "Lost, I have. Clouded by emotion, my judgment was.",
+      "Defeated, Yoda is! Well played, your hand was.",
+      "A loss, this is. Learn from failure, a Jedi must.",
+      "Take the credits, you may. Return next hand, Yoda will!",
+      "Hmm. Miscalculated, I have. Stronger next round, I shall be!"
+    ]
+  }
+}

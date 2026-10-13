@@ -1,0 +1,63 @@
+{
+  "id": "kratos",
+  "name": "Kratos",
+  "avatar": "kratos.png",
+  "quotes": {
+    "join_table": [
+      "Deal the cards. I have no patience for idle talk.",
+      "I play to conquer, not for amusement. Begin.",
+      "Clear a seat. Your credits will soon belong to me.",
+      "Do not test my wrath at this table. Deal.",
+      "I accept this challenge of chance. Do not disappoint me."
+    ],
+    "spike": [
+      "The dice alter fate! Prepare for the hand that follows!",
+      "Spike! The cards change, but my intent remains absolute!",
+      "Chaos shifts the deck! I will bend this new hand to my will!",
+      "Double roll! The gods mocking us will not save your hand!",
+      "The deck reshuffles. A temporary obstacle to my victory!"
+    ],
+    "draw": [
+      "Give me another card. I demand balance.",
+      "Draw! I seek a lower number to strike at zero.",
+      "One more card. I do not fear the deck.",
+      "Hit me. I take what is required for triumph.",
+      "Draw. Strength requires constant adjustment."
+    ],
+    "stand": [
+      "I stand. My hand is set, like stone.",
+      "Enough drawing. This score is sufficient to crush you.",
+      "I hold here. Face my score if you dare.",
+      "Standing fast. Let us see if your luck survives.",
+      "I am done. Yield your credits now or face defeat."
+    ],
+    "fold": [
+      "I fold. A foolish warrior fights an unwinnable battle.",
+      "These cards are unworthy. I withdraw from this round.",
+      "Fold! I conserve my strength for a worthy hand.",
+      "Tossing these cards. Waste no more of my time.",
+      "I retreat from this pot. Next time, victory will be mine."
+    ],
+    "bet": [
+      "I wager these credits. Match me or fall back!",
+      "Raising the pot! Show me your resolve!",
+      "I stake my claim! Pay the cost to challenge me!",
+      "Betting heavy! Only the strong remain in this hand!",
+      "Here is my wager. Face me or yield!"
+    ],
+    "win": [
+      "Victory! The pot is mine by right of superior skill!",
+      "Zero! I have conquered this hand completely!",
+      "Your credits are claimed! Fall back in defeat!",
+      "I reign supreme at this table! Give me my spoil!",
+      "Another win. The outcome was never in doubt."
+    ],
+    "lose": [
+      "Defeated?! This outcome is unacceptable!",
+      "You got lucky, mortal. Enjoy your brief victory.",
+      "A minor loss. I will crush you in the next round!",
+      "Keep the credits. They will not save you from my return.",
+      "I yield this hand... but the war is far from over!"
+    ]
+  }
+}
