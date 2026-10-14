@@ -58,6 +58,20 @@
       "Dreadful luck! Absolutely shameful outcome! Rematch now!",
       " Keep the credits, you got lucky! Next round you are DONE!",
       "Pathetic! A fluke victory! I'll dismantle you in the next hand!"
+    ],
+    "token": [
+      "Token! Finally, something to save this raw disaster of a hand!",
+      "I play a token! About bloody time something went right!",
+      "Shift token! Watch and learn, you donkeys! This is how it's done!",
+      "Token played! Now this hand is actually worth serving!",
+      "Using a token! Get this hand seasoned and back in the game!"
+    ],
+    "dice": [
+      "Dice! Roll them! Don't serve me a raw number, you idiots!",
+      "Impostor dice! Come on, give me something cooked to perfection!",
+      "Roll! I want a number that's not an absolute embarrassment!",
+      "Dice time! If I roll badly, I'm shutting this whole game down!",
+      "Shake the dice! Show me a number worthy of a masterclass!"
     ]
   }
 }

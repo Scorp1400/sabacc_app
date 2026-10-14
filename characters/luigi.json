@@ -58,6 +58,20 @@
       "Oof, defeated! Luigi needs to practice card games more...",
       "Oh no! So far from zero... Luigi is so sorry...",
       "Lost again! Aww, Luigi will try better next time!"
+    ],
+    "token": [
+      "Oh! I play a token! Please work, please please please work!",
+      "Token time! Mamma mia, I hope this helps my poor hand!",
+      "Using a token! I'm so nervous! Don't let me down, token!",
+      "A token for Luigi! Maybe now I won't lose so badly!",
+      "I play a token! Here goes nothing! Oh boy, oh boy!"
+    ],
+    "dice": [
+      "Dice! Oh no, dice! Please roll something good for Luigi!",
+      "Impostor dice! Mamma mia, I hope they're friendly dice!",
+      "Rolling! Yikes! Don't give me a bad number, please!",
+      "Dice time! Luigi is shaking! Come on, lucky dice!",
+      "Roll, dice, roll! Please be nice to poor Luigi!"
     ]
   }
 }

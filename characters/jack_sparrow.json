@@ -58,6 +58,20 @@
       "Losing builds character! Though I much prefer having money.",
       "Ah, defeat. A bitter pill, best washed down with more rum!",
       "You got me this time! But the Captain always gets his revenge!"
+    ],
+    "token": [
+      "A token, savvy? I play it with the grace of a drunken captain!",
+      "Shift token! Fortune favors the bold, and I am nothing if not bold!",
+      "I deploy a token! A most cunning maneuver, if I do say so!",
+      "Token played! The seas of fate shift in Captain Jack's favor!",
+      "A token for Jack! Rum, cards, and a little bit of trickery!"
+    ],
+    "dice": [
+      "Dice! Roll, ye tiny cubes of fate! Show Jack some fortune!",
+      "Impostor dice! Even the dice cannot tell truth from lies, savvy?",
+      "Roll! May the dice be as generous as a tavern full of rum!",
+      "Dice time! Jack Sparrow never loses! Except when he does!",
+      "Shake 'em! The dice are drunk, but so am I! Perfect match!"
     ]
   }
 }

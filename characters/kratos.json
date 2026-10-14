@@ -58,6 +58,20 @@
       "A minor loss. I will crush you in the next round!",
       "Keep the credits. They will not save you from my return.",
       "I yield this hand... but the war is far from over!"
+    ],
+    "token": [
+      "I play a token. It will serve me.",
+      "Token. A tool. I use it without hesitation.",
+      "Shift token. My will is imposed upon this game.",
+      "I deploy a token. Do not mistake it for weakness.",
+      "Token played. The outcome is mine to command."
+    ],
+    "dice": [
+      "Dice. I roll them. Fate will obey.",
+      "Impostor dice. I demand a worthy number.",
+      "Roll. The dice answer to me alone.",
+      "Dice! Show me strength, not chance!",
+      "I cast the dice. Let them fall where they may."
     ]
   }
 }

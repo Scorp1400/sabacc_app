@@ -58,6 +58,20 @@
       "Ouch! My credits are gone! Mario needs a retry quick!",
       "Missed it! That score was too far from zero for Mario.",
       "Game over for this hand! But Mario never gives up, let's go!"
+    ],
+    "token": [
+      "Wahoo! Mario plays a token! Let's-a go!",
+      "Token time! It's-a me, Mario, with a super token!",
+      "I play a token! Mamma mia, this hand is getting spicy!",
+      "Shift token! Mario's got a trick up his sleeve! Yahoo!",
+      "A token for Mario! Like a mushroom, it makes me stronger!"
+    ],
+    "dice": [
+      "Dice! Wahoo! Let's-a roll! Mamma mia, here we go!",
+      "Impostor dice! Roll, roll, roll! Yahoo!",
+      "Rolling the dice! Come on, give Mario a super number!",
+      "Dice time! It's-a like jumping on a Goomba! Yahoo!",
+      "Shake 'em! Mario's dice are-a ready to-a roll!"
     ]
   }
 }

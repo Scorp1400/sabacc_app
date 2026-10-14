@@ -58,6 +58,20 @@
       "A temporary deficit. I shall adjust my calculations for the next round.",
       "Fascinating defeat. The probability distribution was most unexpected.",
       "I concede the pot. A logical triumph on your part."
+    ],
+    "token": [
+      "I play a shift token. The logical advantage is significant.",
+      "Token deployed. Probability of success has increased by 23%.",
+      "A token. The strategic value is... fascinating.",
+      "I utilize a token. Emotion is irrelevant; logic prevails.",
+      "Token played. The outcome is now statistically favorable."
+    ],
+    "dice": [
+      "Dice. I roll them. The outcome is a matter of probability.",
+      "Impostor dice. Fascinating. The value is yet undetermined.",
+      "Rolling. Each die has a 16.7% chance per face. Acceptable.",
+      "Dice! The randomness is... illogical, yet necessary.",
+      "I cast the dice. Logic suggests a favorable result is possible."
     ]
   }
 }

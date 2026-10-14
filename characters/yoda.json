@@ -58,6 +58,20 @@
       "A loss, this is. Learn from failure, a Jedi must.",
       "Take the credits, you may. Return next hand, Yoda will!",
       "Hmm. Miscalculated, I have. Stronger next round, I shall be!"
+    ],
+    "token": [
+      "A token, I play. Shift the game, it will.",
+      "Token, use I must. Helpful, it shall be.",
+      "Shift token! Change the tide, it does.",
+      "Play a token, I do. Wise, the move is.",
+      "Token deployed. Stronger, my hand becomes."
+    ],
+    "dice": [
+      "Dice, roll I must. Trust the Force, I do.",
+      "Impostor dice! Uncertain, the outcome is. Hmm.",
+      "Roll! Guided by the Force, the dice are.",
+      "Dice! Do or do not, there is no try. Roll!",
+      "Cast the dice, I do. Favorable, the number will be."
     ]
   }
 }

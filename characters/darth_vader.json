@@ -58,6 +58,20 @@
       "A minor setback! I will hunt you down in the next round!",
       "Enjoy your credits while you can. My revenge will be absolute!",
       "Defeated?! You have merely delayed your ultimate demise!"
+    ],
+    "token": [
+      "I play a shift token. The Force bends to my will.",
+      "A token. You will find my strategy most... persuasive.",
+      "Shift token! I have altered the deal. Pray I do not alter it further.",
+      "I deploy a token. The Dark Side provides all I require.",
+      "Token played. Your defeat is now inevitable, fools."
+    ],
+    "dice": [
+      "The dice shall obey me. Roll, and serve the Empire!",
+      "Impostor dice! The Force will guide them to perfection.",
+      "Roll! I command these dice to yield a worthy number!",
+      "Dice! Your lack of favorable numbers disturbs me.",
+      "The dice roll! Destiny has already chosen my number."
     ]
   }
 }

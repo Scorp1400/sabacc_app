@@ -58,6 +58,20 @@
       "Nasty tricksy player wins! Smeagol is ruined, crying!",
       "They took it! Our precious pot! We hates them forever!",
       "Lost our coins! Evil, wicked game! Smeagol demands revenge!"
+    ],
+    "token": [
+      "Token! Smeagol plays a tricksy token, yes, precious token!",
+      "We plays a token! Sneaky token helps us steal the pot!",
+      "Shift token! Nasty players won't see this trick coming, no!",
+      "Token for Smeagol! It makes our hand stronger, precious!",
+      "We uses a token! Clever Smeagol! Tricksy and clever!"
+    ],
+    "dice": [
+      "Dice! Roll them, precious dice! Give Smeagol a nice number!",
+      "Impostor dice! Smeagol rolls! Hope for a tiny number, yes!",
+      "Roll! Dice spin! Smeagol wants a small one, very small!",
+      "Dice, dice! Give us luck! We needs it, precious, needs it!",
+      "Rolling! The dice are tricksy! Don't betray Smeagol now!"
     ]
   }
 }

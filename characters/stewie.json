@@ -58,6 +58,20 @@
       "Curse you all! This game is rigged by complete ignoramuses!",
       "A temporary setback! I shall destroy you in the next round!",
       "This is outrage! My genius was undermined by luck alone!"
+    ],
+    "token": [
+      "I play a token, peasants! Tremble before my tactical genius!",
+      "Token! A most devious maneuver! Victory shall be mine!",
+      "Shift token! My plan unfolds beautifully, you fools!",
+      "I deploy a token! Your defeat is now a mere formality!",
+      "Token played! Bow before Stewie's superior intellect!"
+    ],
+    "dice": [
+      "Dice! Roll, you miserable cubes! Serve your master!",
+      "Impostor dice! Even the dice conspire to serve my genius!",
+      "Roll! I demand a number worthy of my brilliance!",
+      "Dice time! The fates themselves kneel before Stewie!",
+      "Shake the dice! Victory is inevitable! Ha!"
     ]
   }
 }

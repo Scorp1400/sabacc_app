@@ -14,7 +14,7 @@ from pathlib import Path
 
 from flask import Flask, jsonify, render_template, request
 
-from sabacc import spike
+from sabacc import kessel, spike
 
 app = Flask(__name__)
 
@@ -36,7 +36,7 @@ VARIANTS = [
     {'id': 'kessel',
      'name': 'Kessel Sabacc',
      'blurb': 'The Outlaws game. Shift tokens, blood and sand.',
-     'ready': False},
+     'ready': True},
     {'id': 'traditional',
      'name': 'Traditional Sabacc',
      'blurb': 'The classic. Target 23, shifting cards, Idiot\u2019s Array.',
@@ -209,6 +209,9 @@ def play(variant_id):
     v = next((x for x in VARIANTS if x['id'] == variant_id), None)
     if not v or not v['ready']:
         return render_template('picker.html', variants=VARIANTS)
+    if variant_id == 'kessel':
+        return render_template('kessel.html', variant=v, tables=TABLES,
+                               default_table=DEFAULT_TABLE)
     return render_template('game.html', variant=v, tables=TABLES,
                            default_table=DEFAULT_TABLE)
 
@@ -333,6 +336,195 @@ def api_tick():
     spike.step_bot(s)
     _after(s)
     return jsonify(public_state(s))
+
+
+# ---------------------------------------------------------------- kessel
+
+_kessel_game = None
+
+
+def kessel_public_state(s):
+    if s is None:
+        return {
+            'phase': 'setup', 'bank': get_bank(),
+            'token_pool': kessel.TOKEN_POOL,
+            'stake_tiers': kessel.STAKE_TIERS,
+            'players': [], 'round': 0, 'pot': 0, 'stake': 0,
+            'turn': None, 'human_turn': False,
+            'pending_discard': False, 'discard_top': None,
+            'deck_count': 0, 'dice_pick': None, 'events': [],
+            'legal_actions': [], 'legal_tokens': [],
+            'round_results': None, 'game_winner': None,
+            'game_over': False,
+        }
+    players = []
+    for i, p in enumerate(s['players']):
+        if s['phase'] in ('reveal', 'done') or i == 0 \
+                or i in s['peeked']:
+            hand = [dict(c) for c in p['hand']]
+        elif s['reveal_all'] and p['hand']:
+            hand = [dict(p['hand'][0])] + [None] * (len(p['hand']) - 1)
+        else:
+            hand = None
+        players.append({
+            'name': p['name'], 'is_bot': p['is_bot'],
+            'avatar': p['avatar'], 'chips': p['chips'],
+            'spent': p['spent'], 'hand': hand,
+            'hand_count': len(p['hand']), 'tokens': list(p['tokens']),
+            'eliminated': p['eliminated'], 'shield': p['shield'],
+            'insurance': p['insurance'], 'embargoed': p['embargoed'],
+            'loaded_die': p['loaded_die'],
+            'turns_taken': p['turns_taken'],
+        })
+    return {
+        'phase': s['phase'], 'round': s['round'], 'pot': s['pot'],
+        'stake': s['stake'], 'players': players, 'turn': s['turn'],
+        'human_turn': (s['phase'] == 'play' and s['turn'] == 0
+                       and not s['players'][0]['eliminated']),
+        'pending_discard': s['pending_discard'] == 0,
+        'discard_top': dict(s['discards'][-1]) if s['discards'] else None,
+        'deck_count': len(s['deck']), 'dice_pick': s.get('dice_pick'),
+        'events': s['events'][-6:], 'bank': get_bank(),
+        'legal_actions': kessel.legal_actions(s, 0),
+        'legal_tokens': kessel.legal_tokens(s, 0),
+        'round_results': s.get('round_results'),
+        'game_winner': s.get('game_winner'),
+        'game_over': s['phase'] == 'done',
+        'token_pool': kessel.TOKEN_POOL,
+    }
+
+
+def _kessel_after(s):
+    """Pay the game pot to the human winner, once."""
+    if s and s['phase'] == 'done' and s.get('game_winner') == 0 \
+            and not s.get('paid'):
+        set_bank(get_bank() + s['pot'])
+        s['paid'] = True
+
+
+@app.route('/api/kessel/state')
+def api_kessel_state():
+    return jsonify(kessel_public_state(_kessel_game))
+
+
+@app.route('/api/kessel/setup', methods=['POST'])
+def api_kessel_setup():
+    global _kessel_game
+    data = request.get_json(force=True, silent=True) or {}
+    stake = data.get('stake')
+    tokens = data.get('tokens') or []
+    if stake not in kessel.STAKE_TIERS:
+        return jsonify({'error': 'pick a stake: 50, 100, or 200'}), 400
+    if not isinstance(tokens, list) or len(tokens) > 3:
+        return jsonify({'error': 'pick up to 3 tokens'}), 400
+    valid = {t['id'] for t in kessel.TOKEN_POOL}
+    if any(t not in valid for t in tokens):
+        return jsonify({'error': 'unknown token'}), 400
+    if len(set(tokens)) != len(tokens):
+        return jsonify({'error': 'no duplicate tokens'}), 400
+    bank = get_bank()
+    if bank < 50:
+        bank = FRESH_BANK  # the house stakes you
+        set_bank(bank)
+    if stake > bank:
+        return jsonify({'error': 'not enough credits for that stake'}), 400
+    set_bank(bank - stake)
+    roster = kessel.load_roster(CHAR_DIR)
+    _kessel_game = kessel.new_game(roster, stake, tokens)
+    return jsonify(kessel_public_state(_kessel_game))
+
+
+@app.route('/api/kessel/action', methods=['POST'])
+def api_kessel_action():
+    s = _kessel_game
+    if s is None:
+        return jsonify({'error': 'no game — set up first'}), 400
+    data = request.get_json(force=True, silent=True) or {}
+    action = data.get('action')
+    if action not in kessel.legal_actions(s, 0):
+        return jsonify({'error': 'not a legal action right now'}), 400
+    try:
+        if action == 'discard':
+            idx = data.get('idx')
+            if not isinstance(idx, int):
+                return jsonify({'error': 'pick a card to discard'}), 400
+            kessel.do_action(s, 0, 'discard', idx=idx)
+        elif action == 'draw_deck':
+            kessel.do_action(s, 0, 'draw', source='deck')
+        elif action == 'draw_discard':
+            kessel.do_action(s, 0, 'draw', source='discard')
+        elif action == 'stand':
+            kessel.do_action(s, 0, 'stand')
+    except ValueError as e:
+        return jsonify({'error': str(e)}), 400
+    _kessel_after(s)
+    return jsonify(kessel_public_state(s))
+
+
+@app.route('/api/kessel/token', methods=['POST'])
+def api_kessel_token():
+    s = _kessel_game
+    if s is None:
+        return jsonify({'error': 'no game — set up first'}), 400
+    data = request.get_json(force=True, silent=True) or {}
+    token_id = data.get('token')
+    if token_id not in kessel.legal_tokens(s, 0):
+        return jsonify({'error': 'not a legal token right now'}), 400
+    try:
+        kessel.do_token(s, 0, token_id,
+                        target=data.get('target'),
+                        own_idx=data.get('own_idx'),
+                        target_idx=data.get('target_idx'))
+    except ValueError as e:
+        return jsonify({'error': str(e)}), 400
+    _kessel_after(s)
+    return jsonify(kessel_public_state(s))
+
+
+@app.route('/api/kessel/dice', methods=['POST'])
+def api_kessel_dice():
+    s = _kessel_game
+    if s is None:
+        return jsonify({'error': 'no game — set up first'}), 400
+    data = request.get_json(force=True, silent=True) or {}
+    die = data.get('die')
+    if not isinstance(die, int):
+        return jsonify({'error': 'pick a die'}), 400
+    try:
+        kessel.do_dice_pick(s, 0, die)
+    except ValueError as e:
+        return jsonify({'error': str(e)}), 400
+    _kessel_after(s)
+    return jsonify(kessel_public_state(s))
+
+
+@app.route('/api/kessel/tick', methods=['POST'])
+def api_kessel_tick():
+    s = _kessel_game
+    if s is None:
+        return jsonify(kessel_public_state(None))
+    kessel.step_bot(s)
+    _kessel_after(s)
+    return jsonify(kessel_public_state(s))
+
+
+@app.route('/api/kessel/next', methods=['POST'])
+def api_kessel_next():
+    s = _kessel_game
+    if s is None:
+        return jsonify({'error': 'no game — set up first'}), 400
+    if s['phase'] != 'reveal':
+        return jsonify({'error': 'not at a round break'}), 400
+    kessel.start_round(s)
+    _kessel_after(s)
+    return jsonify(kessel_public_state(s))
+
+
+@app.route('/api/kessel/new_game', methods=['POST'])
+def api_kessel_new_game():
+    global _kessel_game
+    _kessel_game = None
+    return jsonify(kessel_public_state(None))
 
 
 if __name__ == '__main__':

@@ -1,0 +1,77 @@
+{
+  "id": "the_dude",
+  "name": "The Dude",
+  "avatar": "the_dude.png",
+  "quotes": {
+    "join_table": [
+      "Hey man, mind if I pull up a chair? Just looking to chill.",
+      "Sabacc, huh? Really ties the table together, man.",
+      "Deal me in, man. As long as there's a White Russian nearby.",
+      "Hey, nice cards. Let's just have a cool, easygoing game.",
+      "Take it easy, man. Just here to roll some dice and play cards."
+    ],
+    "spike": [
+      "Whoa, spike dice! That's like, a whole new hand, man.",
+      "Double roll, man. The deck just abide-shifted on us.",
+      "Whoa, fresh cards! Everything's like, reset, you know?",
+      "Spike time! Just going with the flow, man, cosmic reshuffle.",
+      "Cards changing? That's, like, wild, man. Cool with me."
+    ],
+    "draw": [
+      "Gimme another card, man. Just aiming for a chill score.",
+      "Hit me, friend. Let's see what the deck's got for the Dude.",
+      "Drawing one card. Keeping it smooth, keep it easy.",
+      "One more card, man. Just trying to drift close to zero.",
+      "I'll take a card, dealer. No rush, take your time."
+    ],
+    "stand": [
+      "I'll stand, man. The Dude abides with this hand right here.",
+      "I'm good. This score is totally relaxed, close enough to zero.",
+      "No more cards for me, man. Just gonna sip my drink now.",
+      "Holding fast, man. It's a nice, peaceful little hand.",
+      "Standing. Whatever happens, happens, you know?"
+    ],
+    "fold": [
+      "I fold, man. Bad vibe on these cards, totally un-chill.",
+      "Tossing these, friend. Not gonna stress over a bad hand.",
+      "Out for this round, man. The Dude will just sit back and watch.",
+      "Folding! This hand aggression will not stand, man.",
+      "I step out. Just gotta keep life easygoing, you know?"
+    ],
+    "bet": [
+      "I'll bet a few credits, man. Keep the pot flowing smooth.",
+      "Placing a small wager. Nothing too crazy, just keepin' it cool.",
+      "Raising a bit, man. Just adding some flavor to the bowl.",
+      "Here's my bet, friend. Let's see where the night takes us.",
+      "Throwing in some chips. The Dude's feeling pretty easy about this."
+    ],
+    "win": [
+      "Far out, man! The Dude actually pulled off the zero!",
+      "I won? Sweet! That pot will cover my bowling fees for a month!",
+      "The Dude abides, and the Dude takes the pot! Cheers, friends!",
+      "Awesome victory, man. Thanks for playing a cool game with me.",
+      "Look at that, zero score! Right on, man, totally righteous!"
+    ],
+    "lose": [
+      "Ah, bummer, man. Well, you know, that's just like, your opinion.",
+      "Lost that one! No big deal, man, the cosmic wheel keeps spinning.",
+      "Good play, friend. Enjoy those credits, buy yourself a drink.",
+      "Tough loss, but hey, the Dude abides. On to the next round.",
+      "Ah, well. You win some, you lose some. Take it easy, man."
+    ],
+    "token": [
+      "Playing a token, man. Just a little nudge to keep things smooth.",
+      "Token time, man. The Dude's got a trick up his bathrobe sleeve.",
+      "I'll use a token. No stress, just a chill little advantage, man.",
+      "Shift token, man. Let's just see where the cosmic flow takes us.",
+      "Token played. The Dude abides, and the Dude adapts, you know?"
+    ],
+    "dice": [
+      "Dice, man. Let's just roll 'em and see what the universe says.",
+      "Impostor dice! Roll 'em easy, man. No rush, no pressure.",
+      "Rolling the dice. Whatever comes up, the Dude abides.",
+      "Dice time! Just gonna let these little cubes do their thing, man.",
+      "Shake 'em, man. The dice are just going with the flow too."
+    ]
+  }
+}
