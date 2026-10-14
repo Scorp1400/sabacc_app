@@ -228,6 +228,7 @@
       {% endfor %}
     </select>
     <button id="btnNewGame" title="Back to setup">New Game</button>
+    <button id="btnLeave" title="Cash out and pick another variant">Leave Table</button>
     <button id="btnRules" title="How to play">?</button>
   </div>
 </header>
@@ -875,6 +876,13 @@ document.getElementById('btnNewGame').onclick = () => {
   newGame();
 };
 document.getElementById('btnNext').onclick = nextRound;
+document.getElementById('btnLeave').onclick = async () => {
+  if (state && state.phase !== 'setup' && state.phase !== 'done') {
+    if (!confirm('Leave the table? Your tournament stake is forfeited.')) return;
+  }
+  await api('api/kessel/leave_table', 'POST');
+  window.location.href = window.location.pathname.replace(/\/play\/.*$/, '/');
+};
 document.getElementById('btnRules').onclick = () => {
   document.getElementById('rulesOverlay').classList.remove('hidden');
   centerOverTable(document.getElementById('rulesOverlay'));

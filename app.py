@@ -14,7 +14,7 @@ from pathlib import Path
 
 from flask import Flask, jsonify, render_template, request
 
-from sabacc import kessel, spike
+from sabacc import kessel, spike, traditional
 
 app = Flask(__name__)
 
@@ -40,7 +40,7 @@ VARIANTS = [
     {'id': 'traditional',
      'name': 'Traditional Sabacc',
      'blurb': 'The classic. Target 23, shifting cards, Idiot\u2019s Array.',
-     'ready': False},
+     'ready': True},
 ]
 
 
@@ -61,12 +61,26 @@ def init_db():
     c.execute('''CREATE TABLE IF NOT EXISTS bankroll (
                     id INTEGER PRIMARY KEY CHECK (id = 1),
                     balance INTEGER NOT NULL)''')
-    c.execute('''CREATE TABLE IF NOT EXISTS stake (
+    c.execute('''CREATE TABLE IF NOT EXISTS stake_spike (
+                    id INTEGER PRIMARY KEY CHECK (id = 1),
+                    balance INTEGER NOT NULL)''')
+    c.execute('''CREATE TABLE IF NOT EXISTS stake_trad (
                     id INTEGER PRIMARY KEY CHECK (id = 1),
                     balance INTEGER NOT NULL)''')
     c.execute('INSERT OR IGNORE INTO bankroll (id, balance) VALUES (1, ?)',
               (FRESH_BANK,))
-    c.execute('INSERT OR IGNORE INTO stake (id, balance) VALUES (1, 0)')
+    c.execute('INSERT OR IGNORE INTO stake_spike (id, balance) VALUES (1, 0)')
+    c.execute('INSERT OR IGNORE INTO stake_trad (id, balance) VALUES (1, 0)')
+    # Migrate legacy single 'stake' table if present.
+    c.execute("""SELECT name FROM sqlite_master WHERE type='table'
+                 AND name='stake'""")
+    if c.fetchone():
+        c.execute('SELECT balance FROM stake WHERE id = 1')
+        row = c.fetchone()
+        if row:
+            c.execute('UPDATE stake_spike SET balance = ? WHERE id = 1',
+                      (row[0],))
+        c.execute('DROP TABLE stake')
     conn.commit()
     conn.close()
 
@@ -99,19 +113,19 @@ def set_bank(balance):
     _set('bankroll', balance)
 
 
-def get_stake():
-    return _get('stake')
+def get_stake(variant='spike'):
+    return _get(f'stake_{variant}')
 
 
-def set_stake(balance):
-    _set('stake', balance)
+def set_stake(balance, variant='spike'):
+    _set(f'stake_{variant}', balance)
 
 
-def buy_in(bank):
+def buy_in(bank, variant='spike'):
     """Move up to MAX_BUYIN from the bank into a fresh table stake."""
     take = min(MAX_BUYIN, max(0, bank))
     set_bank(bank - take)
-    set_stake(take)
+    set_stake(take, variant)
     return take
 
 
@@ -212,6 +226,9 @@ def play(variant_id):
     if variant_id == 'kessel':
         return render_template('kessel.html', variant=v, tables=TABLES,
                                default_table=DEFAULT_TABLE)
+    if variant_id == 'traditional':
+        return render_template('traditional.html', variant=v, tables=TABLES,
+                               default_table=DEFAULT_TABLE)
     return render_template('game.html', variant=v, tables=TABLES,
                            default_table=DEFAULT_TABLE)
 
@@ -267,6 +284,26 @@ def api_new_table():
     st = public_state(s)
     st['bought_in'] = True
     return jsonify(st)
+
+
+@app.route('/api/leave_table', methods=['POST'])
+def api_leave_table():
+    """Cash out the player's table stake to the bank and clear the
+    table, without buying back in. The frontend navigates to the
+    variant picker."""
+    global _table, _game
+    old = 0
+    if _table is not None:
+        old = _table['human_bankroll']
+        g = _game
+        if (g is not None and g.get('table') is _table
+                and g['phase'] not in ('done', 'cleared', 'busted')):
+            old = g['players'][0]['bankroll']
+    set_bank(get_bank() + old)
+    set_stake(0)  # clear persisted stake so re-entry buys in fresh
+    _table = None
+    _game = None
+    return jsonify({'bank': get_bank()})
 
 
 @app.route('/api/buyin', methods=['POST'])
@@ -434,6 +471,16 @@ def api_kessel_setup():
     return jsonify(kessel_public_state(_kessel_game))
 
 
+@app.route('/api/kessel/leave_table', methods=['POST'])
+def api_kessel_leave_table():
+    """Clear the Kessel game without refunding (stake is forfeited,
+    same as abandoning via New Game). The frontend navigates to the
+    variant picker."""
+    global _kessel_game
+    _kessel_game = None
+    return jsonify({'bank': get_bank()})
+
+
 @app.route('/api/kessel/action', methods=['POST'])
 def api_kessel_action():
     s = _kessel_game
@@ -525,6 +572,246 @@ def api_kessel_new_game():
     global _kessel_game
     _kessel_game = None
     return jsonify(kessel_public_state(None))
+
+
+# ---------------------------------------------------------------- traditional
+
+_trad_table = None
+_trad_game = None
+_trad_hand_count = 0
+
+
+def get_trad_table():
+    global _trad_table
+    if _trad_table is None:
+        roster = spike.load_roster(CHAR_DIR)
+        stake = get_stake('trad')
+        if stake < traditional.ANTE:
+            stake = buy_in(get_bank(), 'trad')
+        _trad_table = traditional.new_table(roster, stake)
+    return _trad_table
+
+
+def get_trad_game():
+    global _trad_game
+    if _trad_game is None:
+        _trad_game = traditional.new_hand(get_trad_table(),
+                                          button=_trad_hand_count % 4)
+    return _trad_game
+
+
+def _trad_after(s):
+    """Persist a finished hand's table stake (and jackpot)."""
+    if s['phase'] == 'done':
+        traditional.sync_table(s, get_trad_table())
+        set_stake(s['players'][0]['bankroll'], 'trad')
+
+
+def _trad_deal(button):
+    global _trad_game
+    _trad_game = traditional.new_hand(get_trad_table(), button=button)
+    # bot turns are paced by the frontend via /api/traditional/tick
+    return _trad_game
+
+
+def traditional_public_state(s):
+    table = get_trad_table()
+    revealed = s['phase'] == 'done'
+    players = []
+    for i, p in enumerate(s['players']):
+        players.append({
+            'name': p['name'],
+            'is_bot': p['is_bot'],
+            'avatar': p['avatar'],
+            'bankroll': p['bankroll'],
+            'busted': p['busted'],
+            'folded': p['folded'],
+            'bet': p['committed'],
+            'hand_count': len(p['hand']),
+            'hand': [dict(c) for c in p['hand']] if (i == 0 or revealed)
+                    else None,
+            'total': traditional.hand_total(p['hand'])
+                     if (i == 0 or revealed) else None,
+        })
+    human = s['players'][0]
+    to_call = 0
+    if s['phase'] == 'betting':
+        to_call = max(0, s['bet_level'] - human['committed'])
+    return {
+        'phase': s['phase'],
+        'round': s['round'],
+        'pot': s['pot'],
+        'sabacc_pot': table['jackpot'],
+        'players': players,
+        'turn': s['turn'],
+        'human_turn': ((s['phase'] in ('actions', 'betting')
+                        and s['turn'] == 0 and not human['folded']
+                        and not human['busted'])
+                       or s['phase'] == 'sylop'),
+        'dice': s['dice'],
+        'shift_seq': s['shift_seq'],
+        'last_shift': s['last_shift'],
+        'events': s['events'][-6:],
+        'stake': human['bankroll'],
+        'bank': get_bank(),
+        'bet_level': s['bet_level'],
+        'to_call': to_call,
+        'legal_actions': traditional.legal_actions(s, 0),
+        'legal_bets': traditional.display_bets(s, 0),
+        'sylop_pick': s['sylop_pick'],
+        'winner': s['winner'],
+        'human_total': traditional.hand_total(human['hand']),
+        'table_cleared': traditional.table_cleared(table)
+                         and s['phase'] in ('done', 'cleared'),
+        'human_busted': (human['bankroll'] < traditional.ANTE
+                         and s['phase'] == 'done'),
+    }
+
+
+@app.route('/api/traditional/state')
+def api_traditional_state():
+    return jsonify(traditional_public_state(get_trad_game()))
+
+
+@app.route('/api/traditional/new', methods=['POST'])
+def api_traditional_new():
+    global _trad_hand_count
+    if get_trad_table()['human_bankroll'] < traditional.ANTE:
+        return jsonify({'error': 'busted'}), 400
+    _trad_hand_count += 1
+    s = _trad_deal(_trad_hand_count % 4)
+    return jsonify(traditional_public_state(s))
+
+
+@app.route('/api/traditional/new_table', methods=['POST'])
+def api_traditional_new_table():
+    global _trad_table, _trad_game, _trad_hand_count
+    # Cash out the live stake. If a hand is in progress on the current
+    # table, the freshest number is in the game state (chips already in
+    # the pot are forfeited); otherwise use the table's recorded stake.
+    # Never create a game here as a side effect.
+    old = 0
+    if _trad_table is not None:
+        old = _trad_table['human_bankroll']
+        g = _trad_game
+        if (g is not None and g.get('table') is _trad_table
+                and g['phase'] not in ('done', 'cleared', 'busted')):
+            old = g['players'][0]['bankroll']
+    set_bank(get_bank() + old)  # cash out to the bank...
+    stake = buy_in(get_bank(), 'trad')  # ...and buy back in, capped
+    roster = spike.load_roster(CHAR_DIR)
+    _trad_table = traditional.new_table(roster, stake)
+    _trad_game = None
+    _trad_hand_count += 1
+    s = _trad_deal(_trad_hand_count % 4)
+    st = traditional_public_state(s)
+    st['bought_in'] = True
+    return jsonify(st)
+
+
+@app.route('/api/traditional/leave_table', methods=['POST'])
+def api_traditional_leave_table():
+    """Cash out the player's table stake to the bank and clear the
+    table, without buying back in. The frontend navigates to the
+    variant picker."""
+    global _trad_table, _trad_game
+    old = 0
+    if _trad_table is not None:
+        old = _trad_table['human_bankroll']
+        g = _trad_game
+        if (g is not None and g.get('table') is _trad_table
+                and g['phase'] not in ('done', 'cleared', 'busted')):
+            old = g['players'][0]['bankroll']
+    set_bank(get_bank() + old)
+    set_stake(0, 'trad')  # clear persisted stake so re-entry buys in fresh
+    _trad_table = None
+    _trad_game = None
+    return jsonify({'bank': get_bank()})
+
+
+@app.route('/api/traditional/buyin', methods=['POST'])
+def api_traditional_buyin():
+    """Broke at the table: buy back in from the bank."""
+    global _trad_hand_count
+    table = get_trad_table()
+    bank = get_bank()
+    if bank < traditional.ANTE:
+        bank = FRESH_BANK  # the house stakes you
+    take = min(MAX_BUYIN, bank)
+    set_bank(bank - take)
+    table['human_bankroll'] += take
+    set_stake(table['human_bankroll'], 'trad')
+    _trad_hand_count += 1
+    s = _trad_deal(_trad_hand_count % 4)
+    st = traditional_public_state(s)
+    st['bought_in'] = True
+    return jsonify(st)
+
+
+@app.route('/api/traditional/action', methods=['POST'])
+def api_traditional_action():
+    s = get_trad_game()
+    data = request.get_json(force=True, silent=True) or {}
+    action = data.get('action')
+    if (s['phase'] != 'actions' or s['turn'] != 0
+            or action not in traditional.legal_actions(s, 0)):
+        return jsonify({'error': 'not a legal action right now'}), 400
+    idx = data.get('idx')
+    if action == 'swap':
+        if not isinstance(idx, int):
+            return jsonify({'error': 'pick a card to swap'}), 400
+        if not 0 <= idx < len(s['players'][0]['hand']):
+            return jsonify({'error': 'bad card index'}), 400
+    else:
+        idx = None
+    try:
+        traditional.do_action(s, 0, action, idx)
+    except ValueError as e:
+        return jsonify({'error': str(e)}), 400
+    _trad_after(s)
+    return jsonify(traditional_public_state(s))
+
+
+@app.route('/api/traditional/bet', methods=['POST'])
+def api_traditional_bet():
+    s = get_trad_game()
+    data = request.get_json(force=True, silent=True) or {}
+    action = data.get('action')
+    if (s['phase'] != 'betting' or s['turn'] != 0
+            or action not in traditional.legal_bets(s, 0)):
+        return jsonify({'error': 'not a legal bet right now'}), 400
+    try:
+        traditional.do_bet(s, 0, action)
+    except ValueError as e:
+        return jsonify({'error': str(e)}), 400
+    _trad_after(s)
+    return jsonify(traditional_public_state(s))
+
+
+@app.route('/api/traditional/tick', methods=['POST'])
+def api_traditional_tick():
+    """Advance one bot turn. The frontend paces these with thinking
+    pauses so the table feels live."""
+    s = get_trad_game()
+    traditional.step_bot(s)
+    _trad_after(s)
+    return jsonify(traditional_public_state(s))
+
+
+@app.route('/api/traditional/sylop', methods=['POST'])
+def api_traditional_sylop():
+    """Human declares their Sylop's value at showdown."""
+    s = get_trad_game()
+    data = request.get_json(force=True, silent=True) or {}
+    value = data.get('value')
+    if not isinstance(value, int):
+        return jsonify({'error': 'pick a value for your Sylop'}), 400
+    try:
+        traditional.do_sylop(s, 0, value)
+    except ValueError as e:
+        return jsonify({'error': str(e)}), 400
+    _trad_after(s)
+    return jsonify(traditional_public_state(s))
 
 
 if __name__ == '__main__':

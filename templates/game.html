@@ -221,6 +221,7 @@
       {% endfor %}
     </select>
     <button id="btnTable" title="Fresh opponents">New Table</button>
+    <button id="btnLeave" title="Cash out and pick another variant">Leave Table</button>
     <button id="btnRules" title="How to play">?</button>
     <button id="btnNew">New Hand</button>
   </div>
@@ -716,6 +717,13 @@ document.getElementById('btnTable').onclick = () => {
   newTable();
 };
 document.getElementById('btnNext').onclick = newHand;
+document.getElementById('btnLeave').onclick = async () => {
+  if (state && state.phase !== 'done' && state.phase !== 'busted' && state.phase !== 'cleared') {
+    if (!confirm('Leave the table? Your stake cashes out to your bank.')) return;
+  }
+  await api('api/leave_table', 'POST');
+  window.location.href = window.location.pathname.replace(/\/play\/.*$/, '/');
+};
 document.getElementById('btnRules').onclick = () =>
   document.getElementById('rulesOverlay').classList.remove('hidden');
 document.getElementById('rulesClose').onclick = () =>
