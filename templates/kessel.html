@@ -158,7 +158,7 @@
   .tokrect { width: 28px; height: 14px; background: linear-gradient(180deg, #f2f4f8 0%, #c8ceda 35%, #8d96a8 55%, #aeb6c4 80%, #dfe3ea 100%); border: 1px solid #565f71; border-radius: 3px; position: relative; cursor: pointer; }
   .tokpop { display: none; position: absolute; left: calc(100% + 8px); top: 50%; transform: translateY(-50%); width: 180px; background: #0d1322; border: 1px solid #f5c542; border-radius: 8px; padding: 8px 10px; z-index: 60; text-align: left; font-size: 13px; }
   .tokpop b { color: #f5c542; }
-  .tokrect:hover .tokpop { display: block; }
+  .tokrect:hover .tokpop, .tokrect.touch-open .tokpop { display: block; }
   .fan-cards { display: flex; align-items: center; justify-content: center; transform: translateY(-90px); }
   #setupOverlay .panel { max-width: 880px; }
   .fan-cards .fan-card { transform: translateY(var(--yoff, 0px)) scale(1.6) rotate(var(--rot, 0deg)); margin: 0 8px; cursor: pointer; animation: fanIn .35s ease; box-shadow: 0 12px 30px rgba(0,0,0,.6); transition: transform .18s ease; }
@@ -215,6 +215,16 @@
   .autofill { height: 100%; width: 0%; background: #f5c542; }
   .autolbl { font-size: 12px; color: #aab2c5; }
   .handwin { border-color: #f5c542 !important; box-shadow: 0 0 18px rgba(245,197,66,.35); }
+  
+  /* Toast Notification */
+  #toast {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    background: rgba(13, 19, 34, 0.95); border: 1px solid #f5c542; color: #f5c542;
+    padding: 10px 20px; border-radius: 8px; font-weight: 600; z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5); opacity: 0; transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  #toast.show { opacity: 1; }
 </style>
 </head>
 <body>
@@ -312,10 +322,12 @@
   </div>
 </div>
 
+<div id="toast"></div>
+
 <script>
 let state = null;
 let selIdx = -1;
-let tokenArmed = null;  // {token, step, own_idx, target}
+let tokenArmed = null;  
 let pumping = false;
 let revealShown = false;
 let setupStake = 100;
@@ -323,11 +335,20 @@ let setupTokens = [];
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
 async function api(path, method = 'GET', body = null) {
   const opts = {method, headers: {'Content-Type': 'application/json'}};
   if (body) opts.body = JSON.stringify(body);
   const r = await fetch('../' + path, opts);
-  return r.json();
+  const res = await r.json();
+  if (res.error) showToast(res.error);
+  return res;
 }
 
 function applyTable(name) {
@@ -339,7 +360,6 @@ function tokenDef(id) {
   return (state && state.token_pool || []).find(t => t.id === id) || {name: id, desc: ''};
 }
 
-// Zoom the whole game to fit the viewport (in only, never below 1x).
 let currentZoom = 1;
 function fitZoom() {
   const t = document.getElementById('table');
@@ -365,7 +385,6 @@ function kesselCardHTML(c, mini) {
   const emb = EMBLEM[c.type] || '';
   const embImg = emb ? `<img class="emblem" src="${emb}" alt="${c.type}">` : '';
   if (c.type === 'sylop' || c.type === 'impostor') {
-    // wilds: big symbol in lieu of a number, no words
     return `<div class="card ${c.type}${mini ? ' mini' : ''}">` +
       `<div class="cembig">${embImg}</div></div>`;
   }
@@ -388,8 +407,6 @@ function findNewQuips(prev, cur) {
   return (cur || []).filter(e => e.quip && e.seat > 0 && !seen.has(e.id));
 }
 
-// Bubbles live outside the panel rebuild cycle: renderBody() wipes the
-// bot panels on every tick, so live bubbles are re-attached afterwards.
 let liveBubbles = [];
 
 function bubblePanel(seat) {
@@ -466,7 +483,6 @@ function render(s) {
   const quips = findNewQuips(prevEvents, s.events);
   renderBody(s);
   flushBubbles(quips);
-  // fan overlay for the human's discard pick: 3 cards rise, grow, fan out
   const fanOv = document.getElementById('fanOverlay');
   const fanOpen = s.pending_discard && s.phase === 'play';
   if (fanOpen) {
@@ -489,7 +505,6 @@ function render(s) {
   } else {
     fanOv.classList.add('hidden');
   }
-  // dice pick for the human
   const diceOv = document.getElementById('diceOverlay');
   if (s.phase === 'dice' && s.dice_pick && s.dice_pick.seat === 0) {
     const row = document.getElementById('diceRow');
@@ -506,7 +521,6 @@ function render(s) {
   } else {
     diceOv.classList.add('hidden');
   }
-  // round/game end overlay (after a beat, so the reveal is visible)
   if ((s.phase === 'reveal' || s.phase === 'done') && !revealShown) {
     revealShown = true;
     setTimeout(() => showEnd(s), 1200);
@@ -565,8 +579,6 @@ function renderBody(s) {
     const bcards = document.createElement('div');
     bcards.className = 'bcards';
     cardEls.forEach(el => bcards.appendChild(el));
-    // token stack: small silver rectangles left of the bot's cards;
-    // hover shows the token's name + description (popup opens right).
     const cardrow = document.createElement('div');
     cardrow.className = 'bcardrow';
     const toks = document.createElement('div');
@@ -575,6 +587,12 @@ function renderBody(s) {
       const def = tokenDef(tid);
       const r = document.createElement('div');
       r.className = 'tokrect';
+      // Touch-friendly toggle support for mobile
+      r.onclick = (e) => {
+        e.stopPropagation();
+        document.querySelectorAll('.tokrect').forEach(x => { if(x !== r) x.classList.remove('touch-open'); });
+        r.classList.toggle('touch-open');
+      };
       const pop = document.createElement('div');
       pop.className = 'tokpop';
       pop.innerHTML = `<b>${def.name}</b><br><span>${def.desc}</span>`;
@@ -592,14 +610,11 @@ function renderBody(s) {
     bots.appendChild(d);
   });
 
-  // human
   const youEl = document.getElementById('you');
   youEl.classList.toggle('active', !!s.human_turn);
   const yc = document.getElementById('ycards');
   yc.innerHTML = '';
   const hp = s.players[0];
-  // during the discard pick, the drawn card never lands on the tabletop:
-  // only the 2 originals render, invisible, holding their spots.
   const showHand = s.pending_discard ? (hp.hand || []).slice(0, 2) : (hp.hand || []);
   showHand.forEach((c, i) => {
     const d = document.createElement('div');
@@ -623,8 +638,6 @@ function renderBody(s) {
   document.getElementById('yourChips').innerHTML =
     `<span class="lbl">YOUR CHIPS</span>\u25c8 ${hp.chips}`;
 
-  // actions (always visible; grayed out when it's not your turn)
-  // play buttons live in #actions (right), tokens in #tokens (left)
   const ab = document.getElementById('actions');
   const tb = document.getElementById('tokens');
   ab.innerHTML = '';
@@ -640,7 +653,6 @@ function renderBody(s) {
   };
   if (s.phase === 'play') {
     if (s.pending_discard) {
-      // hint lives over the fan (gold), not in the actions row
     } else if (tokenArmed) {
       const info = document.createElement('div');
       info.className = 'info';
@@ -660,7 +672,6 @@ function renderBody(s) {
         !active || !s.legal_actions.includes('stand'),
         'Pass this turn. Free.');
     }
-    // token buttons (left column)
     if (!s.pending_discard) {
       const head = document.createElement('div');
       head.className = 'tokhead';
@@ -731,16 +742,11 @@ function showSetup(s) {
     };
     grid.appendChild(d);
   });
-  // Start enabled at 0 (no tokens) or 3; 1-2 grays it out.
   document.getElementById('btnStart').disabled =
     !(setupTokens.length === 0 || setupTokens.length === 3);
   document.getElementById('setupOverlay').classList.remove('hidden');
 }
 
-// center a popup's panel over the table's visual center (the table is
-// zoomed to fit, so its center sits above the viewport center —
-// without this, popups look too low). Clamped so the panel's top
-// stays on screen.
 function centerOverTable(overlay) {
   const t = document.getElementById('table');
   const panel = overlay.querySelector('.panel');
@@ -753,8 +759,6 @@ function centerOverTable(overlay) {
   panel.style.marginTop = shift + 'px';
 }
 
-// dice picker sits near the top of the table (not centered), so the
-// player's own cards stay visible while they pick a die.
 function positionDiceOverlay(overlay) {
   const t = document.getElementById('table');
   if (!t) return;
@@ -805,8 +809,6 @@ function showEnd(s) {
   }
   document.getElementById('endOverlay').classList.remove('hidden');
   centerOverTable(document.getElementById('endOverlay'));
-  // movie mode: if the player is eliminated, auto-advance to the next
-  // round after 5s so they can just watch the bots play it out.
   if (autoTimer) { clearTimeout(autoTimer); autoTimer = null; }
   const bar = document.getElementById('autoBar');
   const fill = document.getElementById('autoFill');
@@ -891,7 +893,7 @@ document.getElementById('rulesClose').onclick = () =>
   document.getElementById('rulesOverlay').classList.add('hidden');
 document.getElementById('btnStart').onclick = async () => {
   const s = await api('api/kessel/setup', 'POST', {stake: setupStake, tokens: setupTokens});
-  if (s.error) { alert(s.error); return; }
+  if (s.error) return;
   resetTurn(); revealShown = false;
   render(s);
 };

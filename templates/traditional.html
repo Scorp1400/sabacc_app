@@ -46,7 +46,6 @@
     display: flex; flex-direction: column; gap: 10px;
     position: relative;
   }
-  /* Sylop and end-of-hand overlays center on the play area, not the viewport */
   #table .overlay { position: absolute; }
   #playrow { display: flex; flex-direction: row; gap: 10px; align-items: stretch; }
   #side {
@@ -176,7 +175,6 @@
   .card.mini.sylop .emblem { width: 66%; height: 66%; }
   .card.mini .rank { font-size: 13px; }
   .card.mini .cglyph { width: 11px; height: 11px; }
-  /* Per-card value labels above player cards (no corners on player cards) */
   .cardwrap { display: flex; flex-direction: column; align-items: center; padding-top: 10px; }
   .cardval { font-size: 18px; font-weight: 800; line-height: 1; min-height: 22px;
              margin-bottom: 10px; }
@@ -234,6 +232,16 @@
     100% { opacity: 0; transform: scale(1); }
   }
   .handwin { border-color: #f5c542 !important; box-shadow: 0 0 18px rgba(245,197,66,.35); }
+
+  /* Toast Notification */
+  #toast {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    background: rgba(13, 19, 34, 0.95); border: 1px solid #f5c542; color: #f5c542;
+    padding: 10px 20px; border-radius: 8px; font-weight: 600; z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5); opacity: 0; transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  #toast.show { opacity: 1; }
 </style>
 </head>
 <body>
@@ -275,9 +283,8 @@
 
   <div class="overlay hidden" id="sylopOverlay">
     <div class="panel">
-      <h2>SYLOP</h2>
-      <p>Your Sylop can be worth <b>0</b>, <b>+15</b>, or <b>&minus;15</b>.</p>
-      <p id="sylopBase"></p>
+      <h2>SYLOP DECLARATION</h2>
+      <p>Choose your Sylop value to target a total of <b>&plusmn;23</b>.</p>
       <div class="row" id="sylopBtns"></div>
     </div>
   </div>
@@ -292,6 +299,7 @@
 </div>
 
 <div id="shiftFlash" class="hidden"><span>SHIFT!</span></div>
+<div id="toast"></div>
 
 <div class="overlay hidden" id="rulesOverlay">
   <div class="panel">
@@ -325,11 +333,20 @@ let pumping = false;
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
 async function api(path, method = 'GET', body = null) {
   const opts = {method, headers: {'Content-Type': 'application/json'}};
   if (body) opts.body = JSON.stringify(body);
   const r = await fetch('../' + path, opts);
-  return r.json();
+  const res = await r.json();
+  if (res.error) showToast(res.error);
+  return res;
 }
 
 function applyTable(name) {
@@ -367,7 +384,6 @@ function cardHTML(c, mini, idx, s) {
   const shifted = !mini && s && (s.last_shift || []).some(ls => ls.seat === 0 && ls.idx === idx);
   if (shifted) valCls += ' shifted';
   if (mini) {
-    // Bot minis keep tiny Ace-style corners for showdown readability.
     const rank = c.kind === 'sylop' ? val : (c.kind === 'idiot' ? '0' : (RANK_LABEL[c.rank] || c.rank));
     const cglyph = c.kind === 'idiot' ? null : (c.kind === 'sylop' ? 'trad_sylop.webp' : SUIT_ART[c.suit] + '.webp');
     const cg = cglyph ? `<img class="cglyph" src="${EMBLEM_URL}${cglyph}" alt="">` : '';
@@ -375,8 +391,6 @@ function cardHTML(c, mini, idx, s) {
                     `<div class="corner br"><div class="rank">${rank}</div>${cg}</div>`;
     return `<div class="card ${cls} mini">${corners}<img class="emblem" src="${EMBLEM_URL}${art}" alt=""></div>`;
   }
-  // Player cards: value label above. Number cards (1-11) keep Ace-style
-  // corners; face cards (12-15) go full-bleed with no corners.
   const isFace = c.kind === 'normal' && c.rank >= 12;
   if (isFace) cls += ' face';
   if (c.kind === 'normal' && c.rank === 15) cls += ' ace';
@@ -394,7 +408,6 @@ function cardHTML(c, mini, idx, s) {
 
 function fmtTotal(t) { return t > 0 ? '+' + t : '' + t; }
 
-// Zoom the whole game to fit the viewport (in only, never below 1x).
 let currentZoom = 1;
 function fitZoom() {
   const t = document.getElementById('table');
@@ -422,8 +435,6 @@ function findNewQuips(prev, cur) {
   return (cur || []).filter(e => e.quip && e.seat > 0 && !seen.has(e.id));
 }
 
-// Bubbles live outside the panel rebuild cycle: renderBody() wipes the
-// bot panels on every tick, so live bubbles are re-attached afterwards.
 let liveBubbles = [];
 
 function bubblePanel(seat) {
@@ -472,9 +483,6 @@ function fitBackground() {
 function resetTurn() {
   selIdx = -1; swapArmed = false; cascadeDone = false;
   revealedBots = new Set();
-  // NOTE: prevShiftSeq is intentionally NOT reset here — it must survive
-  // across actions or every turn would replay the shift animation.
-  // It resets only on a genuinely new hand/table/buy-in.
 }
 
 function render(s) {
@@ -537,7 +545,9 @@ function renderSylop(s) {
     s.sylop_pick.options.forEach(o => {
       const b = document.createElement('button');
       b.className = 'gold';
-      b.textContent = fmtTotal(o.value) + '  →  total ' + fmtTotal(o.total);
+      const diffFromTarget = Math.abs(Math.abs(o.total) - 23);
+      const statusText = diffFromTarget === 0 ? ' (SABACC!)' : ` (dist ${diffFromTarget})`;
+      b.textContent = `Value ${fmtTotal(o.value)} → Total ${fmtTotal(o.total)}${statusText}`;
       b.onclick = () => doSylop(o.value);
       box.appendChild(b);
     });
@@ -553,7 +563,6 @@ async function doSylop(value) {
 }
 
 function renderBody(s) {
-  // bots
   const bots = document.getElementById('bots');
   bots.innerHTML = '';
   const winSeats = new Set(s.winner ? s.winner.seats : []);
@@ -591,7 +600,6 @@ function renderBody(s) {
     bots.appendChild(d);
   });
 
-  // human
   const youEl = document.getElementById('you');
   youEl.classList.toggle('active', !!s.human_turn);
   const yc = document.getElementById('ycards');
@@ -624,7 +632,6 @@ function renderBody(s) {
     yt.textContent = fmtTotal(t);
   }
 
-  // actions (always visible; grayed out when it's not your turn)
   const ab = document.getElementById('actions');
   ab.innerHTML = '';
   const active = !!s.human_turn;

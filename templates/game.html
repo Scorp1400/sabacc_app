@@ -208,6 +208,16 @@
     100% { opacity: 0; transform: scale(1); }
   }
   .handwin { border-color: #f5c542 !important; box-shadow: 0 0 18px rgba(245,197,66,.35); }
+
+  /* Toast Notification */
+  #toast {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    background: rgba(13, 19, 34, 0.95); border: 1px solid #f5c542; color: #f5c542;
+    padding: 10px 20px; border-radius: 8px; font-weight: 600; z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5); opacity: 0; transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  #toast.show { opacity: 1; }
 </style>
 </head>
 <body>
@@ -248,6 +258,7 @@
 </div>
 
 <div id="spikeFlash" class="hidden"><span>SPIKE!</span></div>
+<div id="toast"></div>
 
 <div class="overlay hidden" id="endOverlay">
   <div class="panel">
@@ -287,11 +298,20 @@ let pumping = false;
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
 async function api(path, method = 'GET', body = null) {
   const opts = {method, headers: {'Content-Type': 'application/json'}};
   if (body) opts.body = JSON.stringify(body);
   const r = await fetch('../' + path, opts);
-  return r.json();
+  const res = await r.json();
+  if (res.error) showToast(res.error);
+  return res;
 }
 
 function applyTable(name) {
@@ -317,7 +337,6 @@ function cardHTML(c, mini) {
 
 function fmtTotal(t) { return t > 0 ? '+' + t : '' + t; }
 
-// Zoom the whole game to fit the viewport (in only, never below 1x).
 let currentZoom = 1;
 function fitZoom() {
   const t = document.getElementById('table');
@@ -345,8 +364,6 @@ function findNewQuips(prev, cur) {
   return (cur || []).filter(e => e.quip && e.seat > 0 && !seen.has(e.id));
 }
 
-// Bubbles live outside the panel rebuild cycle: renderBody() wipes the
-// bot panels on every tick, so live bubbles are re-attached afterwards.
 let liveBubbles = [];
 
 function bubblePanel(seat) {
@@ -395,9 +412,6 @@ function fitBackground() {
 function resetTurn() {
   selIdx = -1; swapArmed = false; cascadeDone = false;
   revealedBots = new Set();
-  // NOTE: prevSpikeSeq is intentionally NOT reset here — it must survive
-  // across actions or every turn would replay the spike animation.
-  // It resets only on a genuinely new hand/table/buy-in.
 }
 
 function render(s) {
@@ -444,7 +458,6 @@ function render(s) {
 }
 
 function renderBody(s, justSpiked) {
-  // bots
   const bots = document.getElementById('bots');
   bots.innerHTML = '';
   const winSeats = new Set(s.winner ? s.winner.seats : []);
@@ -489,7 +502,6 @@ function renderBody(s, justSpiked) {
     }
   });
 
-  // human
   const youEl = document.getElementById('you');
   youEl.classList.toggle('active', !!s.human_turn);
   const yc = document.getElementById('ycards');
@@ -525,7 +537,6 @@ function renderBody(s, justSpiked) {
     yt.textContent = fmtTotal(t);
   }
 
-  // actions (always visible; grayed out when it's not your turn)
   const ab = document.getElementById('actions');
   ab.innerHTML = '';
   const active = !!s.human_turn;
@@ -591,7 +602,7 @@ function dealSwoop(s) {
         delay += 110;
       }
     });
-  } catch (e) { /* animation is garnish; never break the game */ }
+  } catch (e) {}
 }
 
 function startCascade() {
